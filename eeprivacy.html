@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>eeprivacy &mdash; Secure Energy Algorithm Testbed  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Laplace Mechanism Basics" href="laplace_mechanism_basics.html" />
+    <link rel="prev" title="Secure Energy Algorithm Testbed (SEAT)" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Secure Energy Algorithm Testbed
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Core Library:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">eeprivacy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#algorithm-design">Algorithm Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#noise-functions">Noise Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#convenience-methods">Convenience Methods</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Examples:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="laplace_mechanism_basics.html">Laplace Mechanism Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gaussian_mechanism_basics.html">Gaussian Mechanism Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic-testing.html">Stochastically Testing Laplace Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clamped-mean-bounds.html">Computing Bounds for Clamped Means</a></li>
+<li class="toctree-l1"><a class="reference internal" href="private-histograms.html">Computing Private Histograms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="private-load-shape-algorithm-design.html">Private Load Shape Algorithm Design</a></li>
+<li class="toctree-l1"><a class="reference internal" href="private-load-shapes.html">Computing Private Load Shapes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="synthetic-data.html">Synthetic Data</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Secure Energy Algorithm Testbed</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>eeprivacy</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/eeprivacy.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="eeprivacy">
+<h1>eeprivacy<a class="headerlink" href="#eeprivacy" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div><p>Creating private figure is like drawing them with a fat pen.</p>
+</div></blockquote>
+<span class="target" id="module-eeprivacy"></span><div class="section" id="algorithm-design">
+<h2>Algorithm Design<a class="headerlink" href="#algorithm-design" title="Permalink to this headline">¶</a></h2>
+<p>The following functions help analysts in choosing parameters for private analytics, exploring the trade-offs of different choices of privacy parameters on accuracy/utility.</p>
+<blockquote>
+<div><dl class="py function">
+<dt id="eeprivacy.laplace_mechanism_epsilon_for_confidence_interval">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">laplace_mechanism_epsilon_for_confidence_interval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_ci</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">confidence</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.95</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.laplace_mechanism_epsilon_for_confidence_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ε for the Laplace Mechanism that will produce outputs
++/-<cite>target_ci</cite> at <cite>confidence</cite> for queries with <cite>sensitivity</cite>.</p>
+<p>For the default <cite>confidence</cite> = 0.95 and <cite>target_ci</cite> = 5, the distribution
+of outputs for the returned ε would be the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>  .25% │      █      │ .25%
+◀──────│      █      │──────▶
+       │      █      │
+       │     ███     │
+       │     ███     │
+       │     ███     │
+       │     ███     │
+       │     ███     │
+       │    █████    │
+       │   ███████   │
+       │  █████████  │
+       │█████████████│
+    ███│█████████████│███
+  ─────┼──────┬──────┼────
+       │      │      │
+            True
+      -5    Count    5
+</pre></div>
+</div>
+<p class="rubric">Example</p>
+<p>Find ε for counting queries that should be within +/-5 of the true count
+at 99% confidence.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">compute_laplace_epsilon</span><span class="p">(</span><span class="n">target_ci</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sensitivity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="mf">0.99</span><span class="p">)</span>
+<span class="go">0.64</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="eeprivacy.laplace_mechanism_confidence_interval">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">laplace_mechanism_confidence_interval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">confidence</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.95</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.laplace_mechanism_confidence_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the confidence interval for the Laplace Mechanism at a given
+<code class="docutils literal notranslate"><span class="pre">epsilon</span></code> and <code class="docutils literal notranslate"><span class="pre">sensitivity</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="eeprivacy.gaussian_mechanism_epsilon_for_confidence_interval">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">gaussian_mechanism_epsilon_for_confidence_interval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_ci</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">delta</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">quantile</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.95</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.gaussian_mechanism_epsilon_for_confidence_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ε for the Gaussian Mechanism at a given 𝜹 that will produce
+outputs +/-<cite>target_ci</cite> at <cite>quantile</cite> confidence for queries with <cite>sensitivity</cite>.</p>
+</dd></dl>
+
+</div></blockquote>
+</div>
+<div class="section" id="noise-functions">
+<h2>Noise Functions<a class="headerlink" href="#noise-functions" title="Permalink to this headline">¶</a></h2>
+<p>Noise functions implement core differential privacy functions.</p>
+<blockquote>
+<div><dl class="py function">
+<dt id="eeprivacy.laplace_mechanism">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">laplace_mechanism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">values</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.laplace_mechanism" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the Laplace Mechanism, adding noise to <cite>value</cite> to realize differential
+private at <cite>epsilon</cite> for the provided <cite>sensitivity</cite>.</p>
+<p>If a list of <code class="docutils literal notranslate"><span class="pre">values</span></code> is provided, run the Laplace Mechanism multiple times,
+once for each item in the list.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="eeprivacy.laplace_mechanism_vec">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">laplace_mechanism_vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>float<span class="p">]</span><a class="headerlink" href="#eeprivacy.laplace_mechanism_vec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the Laplace Mechanism, adding noise to <cite>values</cite> to realize differential
+private at <cite>epsilon</cite> for the provided <cite>sensitivity</cite>.</p>
+<p>A separate draw is performed for each element of <cite>values</cite>.</p>
+<dl class="simple">
+<dt>TODO: semantically, this should be like vector-valued Gaussian and scale to</dt><dd><p>L1 senstivity instead of doing a separate draw for each element.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+</div>
+<div class="section" id="convenience-methods">
+<h2>Convenience Methods<a class="headerlink" href="#convenience-methods" title="Permalink to this headline">¶</a></h2>
+<p>Convenience methods compose noise functions into common analytics tasks like computing means and histograms.</p>
+<blockquote>
+<div><dl class="py function">
+<dt id="eeprivacy.private_mean_with_laplace">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">private_mean_with_laplace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">lower_bound</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">upper_bound</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">confidence</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.95</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>float<span class="p">, </span>float<span class="p">]</span><a class="headerlink" href="#eeprivacy.private_mean_with_laplace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the mean of <cite>values</cite> privately using a clamped mean.</p>
+<p>Implements Algorithm 2.3 from [Li et al] in Differential Privacy: From Theory to Practice</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>private mean and confidence interval for private mean</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Tuple[float, float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="eeprivacy.private_histogram_with_laplace">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">private_histogram_with_laplace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">bins</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>float<span class="p">]</span><a class="headerlink" href="#eeprivacy.private_histogram_with_laplace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the histogram of <cite>values</cite> privately.</p>
+<p>Values are clamped to the bound specified by <code class="docutils literal notranslate"><span class="pre">bins</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Values to bin into histogram</p></li>
+<li><p><strong>bins</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Edges of bins for results. These must be specified up-front
+otherwise information will be leaked by the choice of bins. <a class="reference external" href="https://desfontain.es/privacy/almost-differential-privacy.html">Read more</a></p></li>
+<li><p><strong>epsilon</strong> (<em>float</em>) – privacy parameter</p></li>
+<li><p><strong>sensitivity</strong> (<em>float</em>) – Defaults to one (assumes a counting query)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Private count for each bin.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="eeprivacy.private_quantile">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">private_quantile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">options</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">quantile</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.private_quantile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the quantile of a list of values privately.</p>
+<p>Implemented using Report Noisy Max (Claim 3.9) of Dwork and Roth.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – Dataset</p></li>
+<li><p><strong>options</strong> (<em>List</em><em>[</em><em>float</em><em>]</em>) – List of possible outputs</p></li>
+<li><p><strong>quantile</strong> (<em>float</em>) – Quantile to return (between 0 and 1)</p></li>
+<li><p><strong>epsilon</strong> (<em>float</em>) – Privacy parameter</p></li>
+<li><p><strong>sensitivity</strong> (<em>float</em>) – Normally 1, unless an individual can contribute
+multiple points to the dataset.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="laplace_mechanism_basics.html" class="btn btn-neutral float-right" title="Laplace Mechanism Basics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Secure Energy Algorithm Testbed (SEAT)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Recurve Analytics, Inc.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
