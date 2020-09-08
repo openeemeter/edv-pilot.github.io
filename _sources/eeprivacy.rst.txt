@@ -1,8 +1,6 @@
 eeprivacy
 =========
 
-	Creating private figure is like drawing them with a fat pen.
-
 .. automodule:: eeprivacy
 
 Algorithm Design
@@ -10,9 +8,12 @@ Algorithm Design
 
 The following functions help analysts in choosing parameters for private analytics, exploring the trade-offs of different choices of privacy parameters on accuracy/utility.
 
+	.. autofunction:: laplace_mechanism_sensitivity_for_mean
 	.. autofunction:: laplace_mechanism_epsilon_for_confidence_interval
 	.. autofunction:: laplace_mechanism_confidence_interval
+	.. autofunction:: gaussian_mechanism_sensitivity_for_mean
 	.. autofunction:: gaussian_mechanism_epsilon_for_confidence_interval
+	.. autofunction:: gaussian_mechanism_confidence_interval
 
 Noise Functions
 ---------------
@@ -21,6 +22,8 @@ Noise functions implement core differential privacy functions.
 
 	.. autofunction:: laplace_mechanism
 	.. autofunction:: laplace_mechanism_vec
+	.. autofunction:: gaussian_mechanism
+
 
 Convenience Methods
 -------------------

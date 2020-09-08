@@ -193,16 +193,22 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="eeprivacy">
-<h1>eeprivacy<a class="headerlink" href="#eeprivacy" title="Permalink to this headline">¶</a></h1>
-<blockquote>
-<div><p>Creating private figure is like drawing them with a fat pen.</p>
-</div></blockquote>
-<span class="target" id="module-eeprivacy"></span><div class="section" id="algorithm-design">
+<div class="section" id="module-eeprivacy">
+<span id="eeprivacy"></span><h1>eeprivacy<a class="headerlink" href="#module-eeprivacy" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="algorithm-design">
 <h2>Algorithm Design<a class="headerlink" href="#algorithm-design" title="Permalink to this headline">¶</a></h2>
 <p>The following functions help analysts in choosing parameters for private analytics, exploring the trade-offs of different choices of privacy parameters on accuracy/utility.</p>
 <blockquote>
 <div><dl class="py function">
+<dt id="eeprivacy.laplace_mechanism_sensitivity_for_mean">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">laplace_mechanism_sensitivity_for_mean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">population_size</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">rows_per_individual</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.laplace_mechanism_sensitivity_for_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the sensitivity for means computed with the Laplace Mechanism.</p>
+<p>Supports single value means and vector-valued mean (where each individual
+contributes more than one row to the output).</p>
+<p>The sensitivity is scaled to the L1 norm of the vector.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="eeprivacy.laplace_mechanism_epsilon_for_confidence_interval">
 <code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">laplace_mechanism_epsilon_for_confidence_interval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_ci</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">confidence</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.95</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.laplace_mechanism_epsilon_for_confidence_interval" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the ε for the Laplace Mechanism that will produce outputs
@@ -245,10 +251,26 @@ at 99% confidence.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="eeprivacy.gaussian_mechanism_sensitivity_for_mean">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">gaussian_mechanism_sensitivity_for_mean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">population_size</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">rows_per_individual</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.gaussian_mechanism_sensitivity_for_mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the sensitivity for means computed with the Gaussian Mechanism.</p>
+<p>Supports single value means and vector-valued mean (where each individual
+contributes more than one row to the output).</p>
+<p>The sensitivity is scaled to the L2 norm of the vector.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="eeprivacy.gaussian_mechanism_epsilon_for_confidence_interval">
-<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">gaussian_mechanism_epsilon_for_confidence_interval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_ci</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">delta</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">quantile</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.95</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.gaussian_mechanism_epsilon_for_confidence_interval" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the ε for the Gaussian Mechanism at a given 𝜹 that will produce
-outputs +/-<cite>target_ci</cite> at <cite>quantile</cite> confidence for queries with <cite>sensitivity</cite>.</p>
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">gaussian_mechanism_epsilon_for_confidence_interval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_ci</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">delta</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">confidence</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.95</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.gaussian_mechanism_epsilon_for_confidence_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the ε for the Gaussian Mechanism that will produce outputs
++/-<cite>target_ci</cite> at <cite>confidence</cite> for queries with <cite>sensitivity</cite> and <cite>delta</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="eeprivacy.gaussian_mechanism_confidence_interval">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">gaussian_mechanism_confidence_interval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">delta</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">confidence</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.95</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.gaussian_mechanism_confidence_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the confidence interval for the Laplace Mechanism at a given
+<code class="docutils literal notranslate"><span class="pre">epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">delta</span></code>, and <code class="docutils literal notranslate"><span class="pre">sensitivity</span></code>.</p>
 </dd></dl>
 
 </div></blockquote>
@@ -276,6 +298,15 @@ private at <cite>epsilon</cite> for the provided <cite>sensitivity</cite>.</p>
 <dt>TODO: semantically, this should be like vector-valued Gaussian and scale to</dt><dd><p>L1 senstivity instead of doing a separate draw for each element.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="eeprivacy.gaussian_mechanism">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">gaussian_mechanism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">values</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">delta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.gaussian_mechanism" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the Gaussian Mechanism, adding noise to <cite>value</cite> to realize differential
+private at (<cite>epsilon</cite>, <cite>delta</cite>) for the provided <cite>sensitivity</cite>.</p>
+<p>If a list of <code class="docutils literal notranslate"><span class="pre">values</span></code> is provided, run the Gaussian Mechanism multiple times,
+once for each item in the list.</p>
 </dd></dl>
 
 </div></blockquote>
