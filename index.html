@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Secure Energy Algorithm Testbed (SEAT) &mdash; Secure Energy Algorithm Testbed  documentation</title>
+  <title>Energy Differential Privacy (EDP) &mdash; Energy Differential Privacy  documentation</title>
   
 
   
@@ -53,7 +53,7 @@
           
 
           
-            <a href="#" class="icon icon-home" alt="Documentation Home"> Secure Energy Algorithm Testbed
+            <a href="#" class="icon icon-home" alt="Documentation Home"> Energy Differential Privacy
           
 
           
@@ -90,14 +90,12 @@
 </ul>
 <p class="caption"><span class="caption-text">Examples:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="laplace_mechanism_basics.html">Laplace Mechanism Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gaussian_mechanism_basics.html">Gaussian Mechanism Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stochastic-testing.html">Stochastically Testing Laplace Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laplace-mechanism-basics.html">Laplace Mechanism Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gaussian-mechanism-basics.html">Gaussian Mechanism Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic-testing.html">Stochastically Testing Privacy Mechanisms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clamped-mean-bounds.html">Computing Bounds for Clamped Means</a></li>
-<li class="toctree-l1"><a class="reference internal" href="private-histograms.html">Computing Private Histograms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="private-load-shape-algorithm-design.html">Private Load Shape Algorithm Design</a></li>
 <li class="toctree-l1"><a class="reference internal" href="private-load-shapes.html">Computing Private Load Shapes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="synthetic-data.html">Synthetic Data</a></li>
 </ul>
 
             
@@ -113,7 +111,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">Secure Energy Algorithm Testbed</a>
+          <a href="#">Energy Differential Privacy</a>
         
       </nav>
 
@@ -144,7 +142,7 @@
     
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Secure Energy Algorithm Testbed (SEAT)</li>
+      <li>Energy Differential Privacy (EDP)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -187,13 +185,13 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="secure-energy-algorithm-testbed-seat">
-<h1>Secure Energy Algorithm Testbed (SEAT)<a class="headerlink" href="#secure-energy-algorithm-testbed-seat" title="Permalink to this headline">¶</a></h1>
-<p>The Secure Energy Algorithm Testbed (SEAT) enables the use of the gold standard of privacy protection, differential privacy, for high value energy efficiency analytics.</p>
+<div class="section" id="energy-differential-privacy-edp">
+<h1>Energy Differential Privacy (EDP)<a class="headerlink" href="#energy-differential-privacy-edp" title="Permalink to this headline">¶</a></h1>
+<p>Energy Differential Privacy (EDP) enables the use of the gold standard of privacy protection, differential privacy, for high value energy efficiency analytics.</p>
 <p>This project is funded by the U.S. Department of Energy as part of the <a class="reference external" href="https://www.energy.gov/eere/buildings/energy-data-vault">Energy Data Vault</a> project.</p>
 <p>This work was employed recently to deliver privacy-preserving analysis of the impact of COVID-19 on energy efficiency in California at the California Energy Efficiency Coordinating Committee (<a class="reference external" href="https://www.caeecc.org/">CAECC</a>). Read more about it at <a class="reference external" href="https://recurve.com/">Recurve Privacy Methods Instrumental In Coordinating EE Response To COVID-19</a></p>
 <p>This documentation covers the core library (<cite>eeprivacy</cite>) as well as detailed examples of applying the library in practice.</p>
-<p>In contrast to other open source differential privacy projects, SEAT focuses on enabling and optimizing sector-specific use cases, rather than serving as a general-purpose analytics tool. In our experience, private algorithm design is highly sensitive to the details of use cases, making it difficult to achieve usable accuracy at reasonable privacy budgets using a general-purpose approach.</p>
+<p>In contrast to other open source differential privacy projects, EDP focuses on enabling and optimizing sector-specific use cases, rather than serving as a general-purpose analytics tool. In our experience, private algorithm design is highly sensitive to the details of use cases, making it difficult to achieve usable accuracy at reasonable privacy budgets using a general-purpose approach.</p>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Core Library:</span></p>
 <ul>
@@ -208,17 +206,19 @@
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Examples:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="laplace_mechanism_basics.html">Laplace Mechanism Basics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="laplace_mechanism_basics.html#Distribution-of-Noise-Added-By-Laplace-Mechanism">Distribution of Noise Added By Laplace Mechanism</a></li>
-<li class="toctree-l2"><a class="reference internal" href="laplace_mechanism_basics.html#Examples-of-Laplace-Mechanism-using-eeprivacy">Examples of Laplace Mechanism using <code class="docutils literal notranslate"><span class="pre">eeprivacy</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="laplace-mechanism-basics.html">Laplace Mechanism Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="laplace-mechanism-basics.html#Distribution-of-Laplace-Mechanism-Outputs">Distribution of Laplace Mechanism Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="laplace-mechanism-basics.html#Laplace-Mechanism-Confidence-Interval">Laplace Mechanism Confidence Interval</a></li>
+<li class="toctree-l2"><a class="reference internal" href="laplace-mechanism-basics.html#Examples-of-Laplace-Mechanism-Helpers-using-eeprivacy">Examples of Laplace Mechanism Helpers using <code class="docutils literal notranslate"><span class="pre">eeprivacy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="laplace-mechanism-basics.html#Computing-Private-Histograms">Computing Private Histograms</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="gaussian_mechanism_basics.html">Gaussian Mechanism Basics</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gaussian_mechanism_basics.html#Distribution-of-Noise-Added-By-Gaussian-Mechanism">Distribution of Noise Added By Gaussian Mechanism</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gaussian_mechanism_basics.html#Examples-of-Gaussian-Mechanism-using-eeprivacy">Examples of Gaussian Mechanism using <code class="docutils literal notranslate"><span class="pre">eeprivacy</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="gaussian-mechanism-basics.html">Gaussian Mechanism Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gaussian-mechanism-basics.html#Distribution-of-Gaussian-Mechanism-Outputs">Distribution of Gaussian Mechanism Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gaussian-mechanism-basics.html#Gaussian-Mechanism-Confidence-Interval">Gaussian Mechanism Confidence Interval</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="stochastic-testing.html">Stochastically Testing Laplace Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic-testing.html">Stochastically Testing Privacy Mechanisms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clamped-mean-bounds.html">Computing Bounds for Clamped Means</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="clamped-mean-bounds.html#Dataset">Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="clamped-mean-bounds.html#Background-Theory">Background Theory</a></li>
@@ -226,11 +226,6 @@
 <li class="toctree-l2"><a class="reference internal" href="clamped-mean-bounds.html#Private-Quantiles">Private Quantiles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="clamped-mean-bounds.html#Private-Quantile-Accuracy">Private Quantile Accuracy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="clamped-mean-bounds.html#Results">Results</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="private-histograms.html">Computing Private Histograms</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="private-histograms.html#Theory">Theory</a></li>
-<li class="toctree-l2"><a class="reference internal" href="private-histograms.html#Example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="private-load-shape-algorithm-design.html">Private Load Shape Algorithm Design</a><ul>
@@ -241,11 +236,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="private-load-shapes.html">Computing Private Load Shapes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="private-load-shapes.html#What-is-a-Load-Shape?">What is a Load Shape?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="private-load-shapes.html#Dataset">Dataset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="private-load-shapes.html#Applying-Gaussian-Mechanism-for-Load-Shapes">Applying Gaussian Mechanism for Load Shapes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="synthetic-data.html">Synthetic Data</a></li>
 </ul>
 </div>
 </div>

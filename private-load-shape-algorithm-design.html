@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Private Load Shape Algorithm Design &mdash; Secure Energy Algorithm Testbed  documentation</title>
+  <title>Private Load Shape Algorithm Design &mdash; Energy Differential Privacy  documentation</title>
   
 
   
@@ -40,7 +40,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Computing Private Load Shapes" href="private-load-shapes.html" />
-    <link rel="prev" title="Computing Private Histograms" href="private-histograms.html" /> 
+    <link rel="prev" title="Computing Bounds for Clamped Means" href="clamped-mean-bounds.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -54,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Secure Energy Algorithm Testbed
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Energy Differential Privacy
           
 
           
@@ -91,11 +91,10 @@
 </ul>
 <p class="caption"><span class="caption-text">Examples:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="laplace_mechanism_basics.html">Laplace Mechanism Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gaussian_mechanism_basics.html">Gaussian Mechanism Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stochastic-testing.html">Stochastically Testing Laplace Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laplace-mechanism-basics.html">Laplace Mechanism Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gaussian-mechanism-basics.html">Gaussian Mechanism Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic-testing.html">Stochastically Testing Privacy Mechanisms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clamped-mean-bounds.html">Computing Bounds for Clamped Means</a></li>
-<li class="toctree-l1"><a class="reference internal" href="private-histograms.html">Computing Private Histograms</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Private Load Shape Algorithm Design</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#A-Semantic-Model-for-Load-Shapes">A Semantic Model for Load Shapes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#Candidate-Mechanisms">Candidate Mechanisms</a></li>
@@ -104,7 +103,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="private-load-shapes.html">Computing Private Load Shapes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="synthetic-data.html">Synthetic Data</a></li>
 </ul>
 
             
@@ -120,7 +118,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Secure Energy Algorithm Testbed</a>
+          <a href="index.html">Energy Differential Privacy</a>
         
       </nav>
 
@@ -427,11 +425,12 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Private-Load-Shape-Algorithm-Design">
 <h1>Private Load Shape Algorithm Design<a class="headerlink" href="#Private-Load-Shape-Algorithm-Design" title="Permalink to this headline">¶</a></h1>
-<p>A common visualization in the energy efficiency sector is the “average load shape”.</p>
-<p>A load shape is the trace of energy usage. It is useful at a number of timescale resolutions (hourly, weekly, daily). An average load shape averages the load shapes of a number of buildings together to understand overall energy usage patterns for a population.</p>
+<p>A common visualization in the energy efficiency sector is the “average load shape”, like this one from the California ISO (CAISO):</p>
+<p><img alt="CAISO Example Load Shape" src="_images/caiso-load-shape.png" /></p>
+<p>A load shape is the trace of energy usage at a given time. It is useful at a number of timescales (hourly, daily, weekly). An average load shape averages the load shapes of a number of buildings together to understand overall energy usage patterns for a population.</p>
 <p>What differential privacy mechanism is best suited for average load shapes?</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -452,12 +451,12 @@ div.rendered_html tbody tr:hover {
 
 <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span> <span class="c1"># Fix seed for deterministic documentation</span>
 
-<span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn-white&quot;</span><span class="p">)</span>
+<span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;seaborn-whitegrid&quot;</span><span class="p">)</span>
 
 <span class="n">MD</span> <span class="o">=</span> <span class="mi">28</span>
 <span class="n">LG</span> <span class="o">=</span> <span class="mi">36</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
-    <span class="s2">&quot;figure.figsize&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
+    <span class="s2">&quot;figure.figsize&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
     <span class="s2">&quot;legend.fontsize&quot;</span><span class="p">:</span> <span class="n">MD</span><span class="p">,</span>
     <span class="s2">&quot;axes.labelsize&quot;</span><span class="p">:</span> <span class="n">LG</span><span class="p">,</span>
     <span class="s2">&quot;axes.titlesize&quot;</span><span class="p">:</span> <span class="n">LG</span><span class="p">,</span>
@@ -471,15 +470,15 @@ div.rendered_html tbody tr:hover {
 <h2>A Semantic Model for Load Shapes<a class="headerlink" href="#A-Semantic-Model-for-Load-Shapes" title="Permalink to this headline">¶</a></h2>
 <p>The first challenge that private load shapes presents is determining an appropriate sematic model of privacy. That is, since each figure contains multiple data points per individual building, how should privacy budget be allocated per data point?</p>
 <p>If data points in a time series figure are not correlated, then privacy budget can be reset between each data point. For an overall <span class="math notranslate nohighlight">\(\epsilon_G\)</span>, each data point’s <span class="math notranslate nohighlight">\(\epsilon_i = \epsilon_G\)</span>.</p>
-<p>However, if data points are correlated, then the value from one point in time in the figure could be used to undermine the privacy protection of another.</p>
-<p>Perhaps at some time resolutions, data are highly correlated, but at others, they are not. Minutely energy data would exhibit high correlation, while annual average consumption would exhibit much less.</p>
+<p>However, if data points are correlated, then the value from one point in time in the figure could be used to undermine the privacy protection of another. The privacy budget <span class="math notranslate nohighlight">\(\epsilon_G\)</span> must be shared over the entire set of points in the figure.</p>
+<p>Perhaps at some time resolutions, data are highly correlated, but, at others, they are not. Minutely energy data would exhibit high correlation, while annual average consumption would exhibit much less.</p>
 <p>In this example, we adopt a strict semantic model: privacy budget is never reset.</p>
 <p>A few examples of privacy harms from energy data suggest that this is necessary:</p>
 <ul class="simple">
 <li><p>Occupancy is highly correlated across days</p></li>
 <li><p>Average energy consumption is highly correlated across days</p></li>
 </ul>
-<p>In a previous example, we considered the case of a high profile environmentalist being embarrassed by secretly high energy consumption. Clearly, this high energy consumption reveals itself at almost any single data point.</p>
+<p>In a previous example, we considered the case of a high profile environmentalist being embarrassed by secretly high energy consumption. This high energy consumption would be apparent at almost any hour of the day.</p>
 <p>Therefore, we must bound privacy loss to the entire time series.</p>
 </div>
 <div class="section" id="Candidate-Mechanisms">
@@ -490,6 +489,7 @@ div.rendered_html tbody tr:hover {
 <li><p>Gaussian Mechanism</p></li>
 </ol>
 <p>The Laplace Mechanism adds less noise per data point than the Gaussian Mechanism, but the noise is scaled to the L1 norm of the dataset rather than the L2 norm.</p>
+<p>For a small number of points per building per figure, the Laplace Mechanism will outperform the Gaussian Mechanism. As the number of points increases, the Gaussian Mechanism’s L2 scaling will overtake the accuracy benefit of the Laplace Mechanism.</p>
 </div>
 <div class="section" id="Sample-Data-Set">
 <h2>Sample Data Set<a class="headerlink" href="#Sample-Data-Set" title="Permalink to this headline">¶</a></h2>
@@ -503,19 +503,8 @@ div.rendered_html tbody tr:hover {
 </ul>
 <p>We will consider a variety of population sizes from 100 to 100,000 buildings.</p>
 <p>Finally, we will seek an error of +/- 0.1 kWh per hour at 95% confidence.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1">## Laplace Mechanism for Load Shapes ##</span>
-
-
-</pre></div>
-</div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -557,18 +546,34 @@ div.rendered_html tbody tr:hover {
 <span class="n">monthly_epsilons_gaussian</span> <span class="o">=</span> <span class="n">epsilons</span><span class="p">(</span><span class="n">points_per_building</span><span class="o">=</span><span class="mi">672</span><span class="p">)</span>
 
 <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">daily_epsilons_laplace</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Daily&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weekly_epsilons_laplace</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Weekly&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">monthly_epsilons_laplace</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Monthly&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">daily_epsilons_gaussian</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Daily&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weekly_epsilons_gaussian</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Weekly&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">monthly_epsilons_gaussian</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Monthly&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">daily_epsilons_laplace</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Daily - Laplace&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weekly_epsilons_laplace</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Weekly - Laplace&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">monthly_epsilons_laplace</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Monthly - Laplace&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashdot&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">daily_epsilons_gaussian</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Daily - Gaussian&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashed&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">weekly_epsilons_gaussian</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Weekly - Gaussian&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;solid&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">monthly_epsilons_gaussian</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Monthly - Gaussian&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;dashdot&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Population Size (log scale)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Required ε (log scale)&quot;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">ScalarFormatter</span><span class="p">,</span> <span class="n">FormatStrFormatter</span>
+<span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="p">[</span><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="p">,</span> <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="p">]:</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.0f</span><span class="s2">&quot;</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;minor&#39;</span><span class="p">)</span>
+
+
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -577,12 +582,13 @@ div.rendered_html tbody tr:hover {
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="_images/private-load-shape-algorithm-design_7_0.png" src="_images/private-load-shape-algorithm-design_7_0.png" />
+<img alt="_images/private-load-shape-algorithm-design_6_0.png" src="_images/private-load-shape-algorithm-design_6_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="Accuracy/Privacy-Trade-Off-of-Approaches">
 <h2>Accuracy/Privacy Trade-Off of Approaches<a class="headerlink" href="#Accuracy/Privacy-Trade-Off-of-Approaches" title="Permalink to this headline">¶</a></h2>
+<p>For all of the load shape scenarios considered in this analysis, the Gaussian Mechanism outperforms the Laplace Mechanism, requiring less privacy budget for a given level of accuracy.</p>
 </div>
 </div>
 
@@ -597,7 +603,7 @@ div.rendered_html tbody tr:hover {
         <a href="private-load-shapes.html" class="btn btn-neutral float-right" title="Computing Private Load Shapes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="private-histograms.html" class="btn btn-neutral float-left" title="Computing Private Histograms" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="clamped-mean-bounds.html" class="btn btn-neutral float-left" title="Computing Bounds for Clamped Means" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

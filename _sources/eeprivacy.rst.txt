@@ -23,6 +23,7 @@ Noise functions implement core differential privacy functions.
 	.. autofunction:: laplace_mechanism
 	.. autofunction:: laplace_mechanism_vec
 	.. autofunction:: gaussian_mechanism
+	.. autofunction:: gaussian_mechanism_vec
 
 
 Convenience Methods
@@ -31,5 +32,6 @@ Convenience Methods
 Convenience methods compose noise functions into common analytics tasks like computing means and histograms.
 
 	.. autofunction:: private_mean_with_laplace
+	.. autofunction:: private_vec_sum_with_gaussian
 	.. autofunction:: private_histogram_with_laplace
 	.. autofunction:: private_quantile

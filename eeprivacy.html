@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>eeprivacy &mdash; Secure Energy Algorithm Testbed  documentation</title>
+  <title>eeprivacy &mdash; Energy Differential Privacy  documentation</title>
   
 
   
@@ -39,8 +39,8 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Laplace Mechanism Basics" href="laplace_mechanism_basics.html" />
-    <link rel="prev" title="Secure Energy Algorithm Testbed (SEAT)" href="index.html" /> 
+    <link rel="next" title="Laplace Mechanism Basics" href="laplace-mechanism-basics.html" />
+    <link rel="prev" title="Energy Differential Privacy (EDP)" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -54,7 +54,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Secure Energy Algorithm Testbed
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Energy Differential Privacy
           
 
           
@@ -96,14 +96,12 @@
 </ul>
 <p class="caption"><span class="caption-text">Examples:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="laplace_mechanism_basics.html">Laplace Mechanism Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gaussian_mechanism_basics.html">Gaussian Mechanism Basics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stochastic-testing.html">Stochastically Testing Laplace Mechanism</a></li>
+<li class="toctree-l1"><a class="reference internal" href="laplace-mechanism-basics.html">Laplace Mechanism Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gaussian-mechanism-basics.html">Gaussian Mechanism Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stochastic-testing.html">Stochastically Testing Privacy Mechanisms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="clamped-mean-bounds.html">Computing Bounds for Clamped Means</a></li>
-<li class="toctree-l1"><a class="reference internal" href="private-histograms.html">Computing Private Histograms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="private-load-shape-algorithm-design.html">Private Load Shape Algorithm Design</a></li>
 <li class="toctree-l1"><a class="reference internal" href="private-load-shapes.html">Computing Private Load Shapes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="synthetic-data.html">Synthetic Data</a></li>
 </ul>
 
             
@@ -119,7 +117,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">Secure Energy Algorithm Testbed</a>
+          <a href="index.html">Energy Differential Privacy</a>
         
       </nav>
 
@@ -309,6 +307,16 @@ private at (<cite>epsilon</cite>, <cite>delta</cite>) for the provided <cite>sen
 once for each item in the list.</p>
 </dd></dl>
 
+<dl class="py function">
+<dt id="eeprivacy.gaussian_mechanism_vec">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">gaussian_mechanism_vec</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">delta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#eeprivacy.gaussian_mechanism_vec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the Gaussian Mechanism, adding noise to <cite>values</cite> to realize differential
+private at (<cite>epsilon</cite>, <cite>delta</cite>) for the provided <cite>sensitivity</cite>.</p>
+<p>In constrast to the Gaussian Mechanism run N times, once for each value
+in <cite>values</cite>, the <cite>vec</cite> form is for queries of vector-valued functions,
+where each individual contributes multiple points to the output.</p>
+</dd></dl>
+
 </div></blockquote>
 </div>
 <div class="section" id="convenience-methods">
@@ -331,8 +339,24 @@ once for each item in the list.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="eeprivacy.private_vec_sum_with_gaussian">
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">private_vec_sum_with_gaussian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vectors</span><span class="p">:</span> <span class="n">List<span class="p">[</span>List<span class="p">[</span>float<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">delta</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">lower_bound</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">upper_bound</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">confidence</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.95</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>List<span class="p">[</span>float<span class="p">]</span><span class="p">, </span>float<span class="p">]</span><a class="headerlink" href="#eeprivacy.private_vec_sum_with_gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the mean of vectors <cite>vectors</cite> privately using a clamped sum with the Gaussian
+Mechanism.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>private vector sum
+float:</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[float]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="eeprivacy.private_histogram_with_laplace">
-<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">private_histogram_with_laplace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">bins</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>float<span class="p">]</span><a class="headerlink" href="#eeprivacy.private_histogram_with_laplace" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">eeprivacy.</code><code class="sig-name descname">private_histogram_with_laplace</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">values</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">bins</span><span class="p">:</span> <span class="n">List<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">epsilon</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sensitivity</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">confidence</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.95</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>List<span class="p">[</span>float<span class="p">]</span><span class="p">, </span>float<span class="p">]</span><a class="headerlink" href="#eeprivacy.private_histogram_with_laplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the histogram of <cite>values</cite> privately.</p>
 <p>Values are clamped to the bound specified by <code class="docutils literal notranslate"><span class="pre">bins</span></code>.</p>
 <dl class="field-list simple">
@@ -346,7 +370,8 @@ otherwise information will be leaked by the choice of bins. <a class="reference 
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Private count for each bin.</p>
+<dd class="field-even"><p>Private count for each bin.
+float: Confidence interval for each bin of the histogram</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>List[float]</p>
@@ -385,10 +410,10 @@ multiple points to the dataset.</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="laplace_mechanism_basics.html" class="btn btn-neutral float-right" title="Laplace Mechanism Basics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="laplace-mechanism-basics.html" class="btn btn-neutral float-right" title="Laplace Mechanism Basics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral float-left" title="Secure Energy Algorithm Testbed (SEAT)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Energy Differential Privacy (EDP)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

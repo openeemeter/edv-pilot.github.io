@@ -3,7 +3,7 @@
     {
       "cell_type": "markdown",
       "source": [
-        "# Stochastically Testing Laplace Mechanism #\n",
+        "# Stochastically Testing Privacy Mechanisms #\n",
         "\n",
         "How do you validate that a differential privacy implementation actually works?\n",
         "\n",
